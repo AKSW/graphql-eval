@@ -1,0 +1,10 @@
+query publications @debug @pretty
+  @prefix(name: "", iri: "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#")
+{
+  publications  @pattern(of: "?s a :Publication ; :name '${ID}'", to: "s") {
+    uri @bind(of: "?s")
+    name @one @rdf(ns: "")
+    abstract @one @rdf(ns: "") # There are no abstracts in the tentris adaption of the data - and the tentris schema defines the field but leaves it unmapped.
+  }
+}
+
