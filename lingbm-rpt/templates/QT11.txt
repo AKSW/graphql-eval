@@ -1,7 +1,7 @@
 query graduateStudents @pretty @debug
   @prefix(name: "", iri: "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#")
 {
-  graduateStudents @pattern(of: "?s a :GraduateStudent ; :memberOf ?o", to: "s") {
+  graduateStudents @pattern(of: "?s a :GraduateStudent", to: "s") {
     uri @bind(of: "?s")
     advisor @one @pattern(of: "?s :advisor ?o", from: "s", to: "o") {
       uri @bind(of: "?o")
