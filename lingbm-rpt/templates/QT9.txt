@@ -3,8 +3,8 @@ query university @pretty @debug
 {
   university
       @pattern(of: "?s a :University . FILTER(?s = <${ID}>)", to: "s") {
-    undergraduateDegreeObtainedBystudent @pattern(of: "?s :undergraduateDegreeFrom ?o", from: "o", to: "s") {
-      advisor @pattern(of: "?s :advisor ?o", from: "s", to: "o") {
+    undergraduateDegreeObtainedBystudent @pattern(of: "?s :undergraduateDegreeFrom ?o . ?s a :GraduateStudent", from: "o", to: "s") {
+      advisor @one @pattern(of: "?s :advisor ?o", from: "s", to: "o") {
         publications @pattern(of: "?s :publicationAuthor ?o", from: "o", to: "s") {
           uri @bind(of: "?s")
         }

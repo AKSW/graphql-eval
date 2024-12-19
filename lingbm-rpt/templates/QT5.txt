@@ -3,19 +3,19 @@ query departments @pretty @debug
 {
   department @pattern(of: "?s a :Department . FILTER(?s = <${ID}>)", from: "s", to: "s") {
     uri @bind(of: "?s")
-    subOrganizationOf @one @pattern(of: "?s :subOrganizationOf ?o", from: "s", to: "o") {
+    subOrganizationOf @one @pattern(of: "?s :subOrganizationOf ?o . ?o a :University", from: "s", to: "o") {
       uri @bind(of: "?o")
-      undergraduateDegreeObtainedBystudent @pattern(of: "?s :undergraduateDegreeFrom ?o", from: "o", to: "s") {
+      undergraduateDegreeObtainedBystudent @pattern(of: "?s :undergraduateDegreeFrom ?o. ?s a :GraduateStudent", from: "o", to: "s") {
         uri @bind(of: "?s")
         emailAddress @one @rdf(ns: "")
-        memberOf @pattern(of: "?s :memberOf ?o", from: "s", to: "o") {
+        memberOf @one @pattern(of: "?s :memberOf ?o", from: "s", to: "o") {
           uri @bind(of: "?o")
-          subOrganizationOf @one @pattern(of: "?s :subOrganizationOf ?o", from: "s", to: "o") {
+          subOrganizationOf @one @pattern(of: "?s :subOrganizationOf ?o . ?o a :University", from: "s", to: "o") {
             uri @bind(of: "?o")
-            undergraduateDegreeObtainedBystudent @pattern(of: "?s :undergraduateDegreeFrom ?o", from: "o", to: "s") {
-              uri @bind(of: "?o")
+            undergraduateDegreeObtainedBystudent @pattern(of: "?s :undergraduateDegreeFrom ?o . ?s a :GraduateStudent", from: "o", to: "s") {
+              uri @bind(of: "?s")
               emailAddress @one @rdf(ns: "")
-              memberOf @pattern(of: "?s :memberOf ?o", from: "s", to: "o") {
+              memberOf @one @pattern(of: "?s :memberOf ?o", from: "s", to: "o") {
                 uri @bind(of: "?o")
               }
             }

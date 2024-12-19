@@ -1,13 +1,9 @@
-query faculty
+query faculty @debug @pretty
   @prefix(name: "", iri: "http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#")
 {
-  faculity
-      @pattern(of: "?s a :Faculty . FILTER(?s = <${ID}>)", to: "s") {
-    doctoralDegreeFrom @rdf(ns: "")
-    {
-      undergraduateDegreeObtainedBystudent
-          @pattern(of: "?s :undergraduateDegreeFrom ?o", from: "o", to: "s")
-      {
+  faculity @pattern(of: "?s a :Faculty . FILTER(?s = <${ID}>)", to: "s") {
+    doctoralDegreeFrom @rdf(ns: "") {
+      undergraduateDegreeObtainedBystudent @pattern(of: "?s :undergraduateDegreeFrom ?o . ?s a :GraduateStudent", from: "o", to: "s") {
         uri @bind(of: "?s")
         emailAddress @one @rdf(iri: ":emailAddress")
       }
